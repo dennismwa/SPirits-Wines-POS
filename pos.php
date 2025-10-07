@@ -688,11 +688,11 @@ include 'header.php';
             <div class="mb-4">
                 <label class="block text-xs font-semibold text-gray-700 mb-2">Payment Method</label>
                 <div class="grid grid-cols-2 gap-2">
-                    <button type="button" onclick="selectPaymentMethod('cash')" class="payment-method-btn active">
+                    <button type="button" onclick="selectPaymentMethod('cash')" class="payment-method-btn active" data-method="cash">
                         <i class="fas fa-money-bill-wave text-2xl mb-1 text-green-600"></i>
                         <div class="text-xs font-semibold">Cash</div>
                     </button>
-                    <button type="button" onclick="selectPaymentMethod('mpesa')" class="payment-method-btn">
+                    <button type="button" onclick="selectPaymentMethod('mpesa')" class="payment-method-btn" data-method="mpesa">
                         <i class="fas fa-mobile-alt text-2xl mb-1 text-green-600"></i>
                         <div class="text-xs font-semibold">M-Pesa</div>
                     </button>
@@ -1115,7 +1115,10 @@ function selectPaymentMethod(method) {
     const buttons = document.querySelectorAll('.payment-method-btn');
     buttons.forEach(btn => btn.classList.remove('active'));
     
-    event.target.closest('.payment-method-btn').classList.add('active');
+    const activeBtn = document.querySelector(`[data-method="${method}"]`);
+    if (activeBtn) {
+        activeBtn.classList.add('active');
+    }
     
     document.getElementById('mpesaRefField').classList.add('hidden');
     
